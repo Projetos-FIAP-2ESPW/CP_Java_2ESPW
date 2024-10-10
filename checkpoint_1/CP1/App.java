@@ -1,6 +1,5 @@
 
 package br.com.fiap.twoespwx.libunclepresser;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -41,5 +40,4 @@ public class App {
         return compressed.toString();
     }
 }
-
 // Git hub copilot que fez xDD https://7tv.app/emotes/613937fcf7977b64f644c0d2
