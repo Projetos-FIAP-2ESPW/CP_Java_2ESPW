@@ -3,7 +3,6 @@ package checkpoint2;
 import java.util.Random;
 
 public class SimpleNucleotideGenerator implements NucleotideoRandomGenerator {
-
     private static final char[] NUCLEOTIDES = {'A', 'C', 'G', 'T'};
     private Random random = new Random();
 
@@ -17,3 +16,4 @@ public class SimpleNucleotideGenerator implements NucleotideoRandomGenerator {
         return sequence.toString();
     }
 }
+
