@@ -7,27 +7,32 @@
  * Autores: 
  *      - André Lambert - RM99148
  *      - Guilherme Morais - RM551981
+ 
+ * Para o melhor funcionamento do codigo os arquivos input1.txt e OUTPUT1.TXT foram movidos para a mesma pasta que se encontra este script
+ * o local dos arquivos pode e deve ser alterado conforme a necessidade do usuario.
  */
 
+//Package Project
 package br.com.fiap.twoespwx.libunclepresser;
 
+//Import
 import java.io.*;
 import java.nio.file.*;
 import java.nio.charset.StandardCharsets;
 
 public class App {
     public static void main(String[] args) {
-        if (args.length < 2) {
-            System.out.println("Uso: java -jar <caminho/para/app.jar> <input.txt> <output.txt>");
+        if (args.length < 2) { //Tratamento de erro da utilização do programa
+            System.out.println("Comando para uso do programa: java -jar <caminho/para/app.jar> <input.txt> <output.txt>");
             return;
         }
 
-        String inputFilePath = args[0];
-        String outputFilePath = args[1];
+        String inputFilePath = args[0]; // Recebendo caminho do input
+        String outputFilePath = args[1]; // Recebendo caminho do output
 
         String nucleotideSequence = readFile(inputFilePath);
-        if (nucleotideSequence == null) {
-            System.out.println("Erro ao ler o arquivo de entrada.");
+        if (nucleotideSequence == null) { //Tratamento de erro do caminho do arquivo
+            System.out.println("Erro ao ler o arquivo de entrada, caminho nao encontrado.");
             return;
         }
 
@@ -37,7 +42,7 @@ public class App {
         printReport(inputFilePath, outputFilePath, nucleotideSequence, compressedData);
     }
 
-    // Método para ler o arquivo em versões anteriores ao Java 11
+    // Método para ler o arquivo
     public static String readFile(String filePath) {
         StringBuilder content = new StringBuilder();
         try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath), StandardCharsets.UTF_8)) {
@@ -52,7 +57,7 @@ public class App {
         return content.toString();
     }
 
-    // Método para escrever o arquivo em versões anteriores ao Java 11
+    // Método para escrever o arquivo
     public static void writeFile(String filePath, String data) {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath), StandardCharsets.UTF_8)) {
             writer.write(data);
@@ -61,6 +66,7 @@ public class App {
         }
     }
 
+    // Método para comprimir os dados
     public static String compress(String data) {
         StringBuilder compressed = new StringBuilder();
         int count = 1;
@@ -76,11 +82,13 @@ public class App {
         return compressed.toString();
     }
 
+    // Método para calcular a quantia de compressão dos dados
     public static double calculateCompressionRate(String originalData, String compressedData) {
         return (double) compressedData.getBytes(StandardCharsets.UTF_8).length
                 / originalData.getBytes(StandardCharsets.UTF_8).length;
     }
 
+    // Método para calcular a frequancia de caracteres
     public static String calculateFrequencies(String data) {
         long countA = data.chars().filter(ch -> ch == 'A').count();
         long countC = data.chars().filter(ch -> ch == 'C').count();
@@ -96,6 +104,7 @@ public class App {
                 (float) countG, 100.0 * countG / totalChars);
     }
 
+    // Método para devolver o report do "script'
     public static void printReport(String inputFilePath, String outputFilePath, String originalData,
             String compressedData) {
         File inputFile = new File(inputFilePath);
